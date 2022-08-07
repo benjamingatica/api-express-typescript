@@ -1,0 +1,19 @@
+import { Schema, model } from 'mongoose';
+
+const noteSchema = new Schema({
+	content: String,
+	date: Date,
+	important: Boolean,
+});
+
+noteSchema.set('toJSON', {
+	transform: (_document: any, returnedObject: any) => {
+		returnedObject.id = returnedObject._id;
+		delete returnedObject._id;
+		delete returnedObject.__v;
+	},
+});
+
+const Note = model('Note', noteSchema);
+
+export default Note;
