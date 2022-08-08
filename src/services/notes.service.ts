@@ -15,6 +15,10 @@ export const saveNote = async (newNoteEntry: NewNoteEntry) => {
 	return newNote.save();
 };
 
+export const updateNote = async (id: string, updateNote: any) => {
+	return Note.findByIdAndUpdate(id, updateNote, { new: true });
+};
+
 export const deleteNote = async (id: string) => {
 	return Note.findByIdAndDelete(id);
 };

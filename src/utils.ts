@@ -27,3 +27,12 @@ export const toNewNoteEntry = (object: any): NewNoteEntry => {
 
 	return newNote;
 };
+
+export const toUpdatedNoteEntry = (object: any): any => {
+	const updatedNote: any = {};
+
+	if (object.content) updatedNote.content = parseContent(object.content);
+	if (object.important !== undefined && typeof object.important === 'boolean') updatedNote.important = object.important;
+	console.log(updatedNote);
+	return updatedNote;
+};

@@ -1,6 +1,6 @@
 import express from 'express';
 import * as notesService from '../services/notes.service';
-import { toNewNoteEntry } from '../utils';
+import { toNewNoteEntry, toUpdatedNoteEntry } from '../utils';
 
 const router = express.Router();
 
@@ -62,4 +62,18 @@ router.delete('/:id', async (req, res) => {
 
 export default router;
 
-router.put('/:id', );
+router.put('/:id', async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const updatedNoteEntry = toUpdatedNoteEntry(req.body);
+
+		const updatedNote = await notesService.updateNote(id, updatedNoteEntry);
+
+		res.status(201).send(updatedNote);
+	} catch (error) {
+		res.status(400).send(
+			error instanceof Error ? error.message : 	'Unexpected error ' + error
+		);
+	}
+});
